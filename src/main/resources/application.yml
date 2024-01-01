@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://10.2.10.2:3306/cloud"
+    username: root
+    password: 123456
