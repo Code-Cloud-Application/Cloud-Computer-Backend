@@ -2,7 +2,7 @@ package cloud.computer.backend.Entity;
 
 import java.util.Objects;
 
-public class User {
+public class User extends OpenStackEntity{
 
     private int id;
     private String username;
@@ -38,18 +38,4 @@ public class User {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        User user = (User) obj;
-        return id == user.id &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password);
-    }
 }
