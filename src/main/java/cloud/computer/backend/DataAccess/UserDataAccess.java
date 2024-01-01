@@ -5,6 +5,7 @@ import cloud.computer.backend.Entity.RowMapper.UserRowMapper;
 import cloud.computer.backend.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,14 +28,32 @@ public class UserDataAccess {
         return this.template.query("SELECT * FROM `user`", new UserRowMapper());
     }
 
+    /**
+     * 判断某位用户是否存在
+     * @param id 用户ID
+     * @return 如果存在则返回true，否则返回false
+     */
     public boolean isExist(int id){
         return !this.template.query("select * from `user` where id=?", new UserRowMapper(), id).isEmpty();
     }
 
+    /**
+     * 判断某位用户是否存在。
+     * @apiNote 本质上是使用用户ID进行判断
+     * @param user 用户实体
+     * @return 如果存在则返回true，否则返回false
+     */
     public boolean isExist(User user){
         return isExist(user.getId());
     }
 
+    /**
+     * 取出用户实体
+     * @param id 用户ID
+     * @return 返回用户实体。如果用户不存在，则返回null。
+     */
+
+    @Nullable
     public User getUser(int id){
         return this.template.queryForObject("select * from `user` where id=?", new UserRowMapper(), id);
     }
@@ -54,10 +73,19 @@ public class UserDataAccess {
                 user.getId(), user.getUsername(), user.getPassword());
     }
 
+    /**
+     * 删除某位用户
+     * @param id 用户ID
+     */
     public void removeUser(int id){
         this.template.update("delete from user where id=?;", id);
     }
 
+    /**
+     * 更新某位用户的用户信息
+     * @apiNote 根据ID筛选
+     * @param user 新的用户实体
+     */
     public void updateUser(User user){
         this.template.update("update user set username=?, password=? where id=?;",
                 user.getUsername(), user.getPassword(), user.getId());
