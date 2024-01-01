@@ -7,8 +7,8 @@ public class Server {
     private String id;
     private String name;
     private String address;
-    private int ImageId;
-    private int FlavorId;
+    private String ImageId;
+    private String FlavorId;
     private String status;
     private int OwnerId;
     private final Date created = Calendar.getInstance().getTime();
@@ -37,19 +37,19 @@ public class Server {
         this.address = address;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return ImageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         ImageId = imageId;
     }
 
-    public int getFlavorId() {
+    public String getFlavorId() {
         return FlavorId;
     }
 
-    public void setFlavorId(int flavorId) {
+    public void setFlavorId(String flavorId) {
         FlavorId = flavorId;
     }
 
