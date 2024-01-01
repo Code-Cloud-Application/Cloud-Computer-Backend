@@ -1,5 +1,8 @@
 package cloud.computer.backend.Entity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Server {
     private String id;
     private String name;
@@ -8,6 +11,7 @@ public class Server {
     private int FlavorId;
     private String status;
     private int OwnerId;
+    private final Date created = Calendar.getInstance().getTime();
 
     public String getId() {
         return id;
@@ -63,5 +67,9 @@ public class Server {
 
     public void setOwnerId(int ownerId) {
         OwnerId = ownerId;
+    }
+
+    public Date getCreated() {
+        return created;
     }
 }
