@@ -16,6 +16,7 @@ public class ServerRowMapper implements RowMapper<Server> {
         server.setImageId(rs.getInt("image_id"));
         server.setFlavorId(rs.getInt("flavor_id"));
         server.setStatus(rs.getString("status"));
+        server.setOwnerId(rs.getInt("owner_id"));
         return server;
     }
 }

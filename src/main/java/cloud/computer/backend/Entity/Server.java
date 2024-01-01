@@ -7,6 +7,7 @@ public class Server {
     private int ImageId;
     private int FlavorId;
     private String status;
+    private int OwnerId;
 
     public String getId() {
         return id;
@@ -54,5 +55,13 @@ public class Server {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getOwnerId() {
+        return OwnerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        OwnerId = ownerId;
     }
 }
