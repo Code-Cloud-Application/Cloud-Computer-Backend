@@ -3,3 +3,9 @@ spring:
     url: "jdbc:mysql://10.2.10.2:3306/cloud"
     username: root
     password: 123456
+
+openstack:
+  url: "http://10.2.10.1:5000/v3"
+  admin: "admin"
+  password: "openstack2023"
+  project_id: "b7ea1c378b0f4d68aa9673841bd2257f"
