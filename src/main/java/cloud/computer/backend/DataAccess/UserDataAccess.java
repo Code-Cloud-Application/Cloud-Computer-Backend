@@ -4,6 +4,7 @@ import cloud.computer.backend.Entity.Exception.UserAlreadyExistException;
 import cloud.computer.backend.Entity.RowMapper.UserRowMapper;
 import cloud.computer.backend.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
@@ -56,11 +57,21 @@ public class UserDataAccess implements GenericIdDataAccess{
 
     @Nullable
     public User getUser(int id){
-        return this.template.queryForObject("select * from `user` where id=?", new UserRowMapper(), id);
+        try {
+            return this.template.queryForObject("select * from `user` where id=?", new UserRowMapper(), id);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
+
     }
 
+    @Nullable
     public User getUser(String username){
-        return this.template.queryForObject("select * from `user` where username=?", new UserRowMapper(), username);
+        try {
+            return this.template.queryForObject("select * from `user` where username=?", new UserRowMapper(), username);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     /**
