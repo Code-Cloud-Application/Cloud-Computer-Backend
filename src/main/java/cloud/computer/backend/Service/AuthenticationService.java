@@ -4,7 +4,6 @@ import cloud.computer.backend.DataAccess.UserDataAccess;
 import cloud.computer.backend.Entity.AuthenticationResult;
 import cloud.computer.backend.Entity.Reason;
 import cloud.computer.backend.Entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

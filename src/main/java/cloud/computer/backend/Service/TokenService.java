@@ -3,7 +3,6 @@ package cloud.computer.backend.Service;
 import cloud.computer.backend.DataAccess.TokenDataAccess;
 import cloud.computer.backend.DataAccess.UserDataAccess;
 import cloud.computer.backend.Entity.Token;
-import cloud.computer.backend.Entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

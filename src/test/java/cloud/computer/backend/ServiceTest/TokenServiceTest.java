@@ -4,7 +4,6 @@ import cloud.computer.backend.DataAccess.UserDataAccess;
 import cloud.computer.backend.Entity.User;
 import cloud.computer.backend.Service.TokenService;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

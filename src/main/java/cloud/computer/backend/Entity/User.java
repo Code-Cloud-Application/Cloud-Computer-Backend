@@ -1,7 +1,5 @@
 package cloud.computer.backend.Entity;
 
-import java.util.Objects;
-
 public class User extends OpenStackEntity{
 
     private int id;

@@ -1,6 +1,5 @@
 package cloud.computer.backend;
 
-import cloud.computer.frpc.FRPCConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

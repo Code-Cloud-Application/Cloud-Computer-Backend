@@ -1,18 +1,14 @@
 package cloud.computer.backend.Controller;
 
 import cloud.computer.backend.Entity.AuthenticationResult;
-import cloud.computer.backend.Entity.User;
 import cloud.computer.backend.Service.AuthenticationService;
 import cloud.computer.backend.Service.TokenService;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RestController
 public class UserController {
