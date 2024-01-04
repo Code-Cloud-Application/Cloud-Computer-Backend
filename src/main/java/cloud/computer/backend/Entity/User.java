@@ -38,4 +38,12 @@ public class User extends OpenStackEntity{
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

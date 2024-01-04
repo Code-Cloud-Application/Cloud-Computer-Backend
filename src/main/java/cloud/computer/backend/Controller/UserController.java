@@ -1,4 +1,4 @@
-package cloud.computer.backend.controller;
+package cloud.computer.backend.Controller;
 
 import cloud.computer.backend.Entity.User;
 import com.alibaba.fastjson2.JSONObject;
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @PostMapping(value = "/login", consumes = "application/json")
-    public JSONObject login(@RequestBody User user,
+    public JSONObject login(@RequestBody JSONObject param,
                             HttpServletRequest request,
                             HttpServletResponse response){
+        System.out.println(param);
         return null;
     }
 }
