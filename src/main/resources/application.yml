@@ -9,3 +9,6 @@ openstack:
   admin: "admin"
   password: "openstack2023"
   project_id: "b7ea1c378b0f4d68aa9673841bd2257f"
+
+token:
+  period: 7
