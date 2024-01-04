@@ -1,4 +1,4 @@
-package cloud.computer.backend;
+package cloud.computer.backend.DataAccessTest;
 
 import cloud.computer.backend.DataAccess.TokenDataAccess;
 import cloud.computer.backend.Entity.Token;
