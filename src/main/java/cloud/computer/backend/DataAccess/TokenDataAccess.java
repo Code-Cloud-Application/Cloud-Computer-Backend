@@ -11,7 +11,7 @@ import java.util.*;
 
 
 @Repository
-public class TokenDataAccess {
+public class TokenDataAccess implements GenericIdDataAccess{
 
     private JdbcTemplate template;
 
@@ -37,6 +37,7 @@ public class TokenDataAccess {
                 value);
     }
 
+    @Override
     public int getMaxId(){
         Optional<Integer> optional = Optional.ofNullable(this.template.queryForObject("select MAX(id) from `token`", Integer.class));
         return optional.orElse(0);
@@ -52,6 +53,10 @@ public class TokenDataAccess {
 
     public void removeToken(int id){
         this.template.update("delete from token where id=?;", id);
+    }
+
+    public void removeTokenByOwnerId(int id){
+        this.template.update("delete from token where owner_id=?;", id);
     }
 
 

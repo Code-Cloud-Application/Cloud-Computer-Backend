@@ -9,9 +9,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class UserDataAccess {
+public class UserDataAccess implements GenericIdDataAccess{
 
     private JdbcTemplate template;
 
@@ -95,4 +96,9 @@ public class UserDataAccess {
                 user.getUsername(), user.getPassword(), user.getId());
     }
 
+    @Override
+    public int getMaxId() {
+        Optional<Integer> optional = Optional.ofNullable(this.template.queryForObject("select MAX(id) from `user`", Integer.class));
+        return optional.orElse(0);
+    }
 }
