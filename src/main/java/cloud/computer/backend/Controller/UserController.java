@@ -6,9 +6,7 @@ import cloud.computer.backend.Service.TokenService;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -22,12 +20,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public JSONObject login(@RequestParam("username") String username,
-                            @RequestParam("password") String password,
+    @CrossOrigin("*")
+    public JSONObject login(@RequestBody JSONObject param,
                             HttpServletRequest request,
                             HttpServletResponse response){
-//        System.out.println(username);
-//        System.out.println(password);
+
+        String username = param.getString("username");
+        String password = param.getString("password");
         JSONObject result = new JSONObject();
         AuthenticationResult authenticate = this.authenticationService.authenticate(username, password);
         result.put("code", authenticate.getResult() ? 1 : 0);
