@@ -58,6 +58,10 @@ public class UserDataAccess {
         return this.template.queryForObject("select * from `user` where id=?", new UserRowMapper(), id);
     }
 
+    public User getUser(String username){
+        return this.template.queryForObject("select * from `user` where username=?", new UserRowMapper(), username);
+    }
+
     /**
      * 添加用户
      * @param user 要添加的用户
