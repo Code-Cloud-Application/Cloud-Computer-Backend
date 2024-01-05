@@ -11,7 +11,7 @@
 
 	<groupId>cloud.computer</groupId>
 	<artifactId>Backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Backend</name>
 	<description>Backend</description>
 	<properties>
