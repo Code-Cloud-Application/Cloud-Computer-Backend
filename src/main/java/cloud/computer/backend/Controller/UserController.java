@@ -20,7 +20,6 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    @CrossOrigin("*")
     public JSONObject login(@RequestBody JSONObject param,
                             HttpServletRequest request,
                             HttpServletResponse response){

@@ -22,5 +22,11 @@ public class AuthenticationResult extends OpenStackEntity{
     public Reason getReason() {
         return reason;
     }
+
+    public enum Reason{
+        USER_NOT_FOUND,
+        WRONG_PASSWORD,
+        USER_ALREADY_EXIST
+    }
 }
 
