@@ -1,4 +1,7 @@
 spring:
+  output:
+    ansi:
+      enabled: always
   datasource:
     url: "jdbc:mysql://10.2.10.2:3306/cloud"
     username: root
@@ -12,3 +15,17 @@ openstack:
 
 token:
   period: 7
+
+logging:
+  charset:
+    console: utf-8
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} === [%thread] === %-5level - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} >>> [%thread] >>> %-5level >>> %logger{50} >>> %msg%n"
+  file:
+    path: "./logs/"
+    name: "application.log"
+  level:
+    root: info
+    sql: info
+    web: info
