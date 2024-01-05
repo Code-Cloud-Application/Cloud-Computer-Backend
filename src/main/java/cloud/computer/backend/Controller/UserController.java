@@ -20,9 +20,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public JSONObject login(@RequestBody JSONObject param,
-                            HttpServletRequest request,
-                            HttpServletResponse response){
+    public JSONObject login(@RequestBody JSONObject param){
 
         String username = param.getString("username");
         String password = param.getString("password");
