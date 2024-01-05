@@ -40,4 +40,19 @@ public class UserController {
         }
         return result;
     }
+
+
+    @PostMapping("/register")
+    public JSONObject register(@RequestBody JSONObject param){
+        String username = param.getString("username");
+        String password = param.getString("password");
+        JSONObject result = new JSONObject();
+        AuthenticationResult authenticate = this.authenticationService.addUser(username, password);
+        result.put("code", authenticate.getResult() ? 1 : 0);
+        if (authenticate.getReason() != null){
+            result.put("message", "用户" + username + "已存在！");
+        }
+        return result;
+
+    }
 }

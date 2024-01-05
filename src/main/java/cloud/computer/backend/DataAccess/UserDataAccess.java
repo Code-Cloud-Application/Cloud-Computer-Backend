@@ -32,21 +32,21 @@ public class UserDataAccess implements GenericIdDataAccess{
 
     /**
      * 判断某位用户是否存在
-     * @param id 用户ID
+     * @param username 用户名
      * @return 如果存在则返回true，否则返回false
      */
-    public boolean isExist(int id){
-        return !this.template.query("select * from `user` where id=?", new UserRowMapper(), id).isEmpty();
+    public boolean isExist(String username){
+        return !this.template.query("select * from `user` where username=?", new UserRowMapper(), username).isEmpty();
     }
 
     /**
      * 判断某位用户是否存在。
-     * @apiNote 本质上是使用用户ID进行判断
+     * @apiNote 本质上是使用用户名进行判断
      * @param user 用户实体
      * @return 如果存在则返回true，否则返回false
      */
     public boolean isExist(User user){
-        return isExist(user.getId());
+        return isExist(user.getUsername());
     }
 
     /**
