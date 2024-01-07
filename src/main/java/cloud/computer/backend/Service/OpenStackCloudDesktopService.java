@@ -1,12 +1,11 @@
 package cloud.computer.backend.Service;
 
+import cloud.computer.backend.DataAccess.OpenStackKeystoneDataAccess;
 import cloud.computer.backend.DataAccess.ServerDataAccess;
 import cloud.computer.backend.Entity.Server;
-import cloud.computer.backend.DataAccess.OpenStackKeystoneDataAccess;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class OpenStackCloudDesktopService implements CloudDesktopService{

@@ -2,13 +2,10 @@ package cloud.computer.backend.Controller;
 
 import cloud.computer.backend.DataAccess.UserDataAccess;
 import cloud.computer.backend.Entity.User;
-import cloud.computer.backend.Service.AuthenticationService;
 import cloud.computer.backend.Service.CloudDesktopService;
 import cloud.computer.backend.Service.OpenStackCloudDesktopService;
 import com.alibaba.fastjson2.JSONObject;
 import org.openstack4j.api.OSClient;
-import org.springframework.context.annotation.Scope;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

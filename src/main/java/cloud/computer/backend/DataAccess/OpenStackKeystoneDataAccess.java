@@ -3,18 +3,12 @@ package cloud.computer.backend.DataAccess;
 import cloud.computer.backend.Entity.OpenStackConnector;
 import cloud.computer.backend.Entity.Server;
 import org.openstack4j.api.Builders;
-import org.openstack4j.api.OSClient;
-import org.openstack4j.model.common.Identifier;
 import org.openstack4j.model.compute.Action;
 import org.openstack4j.model.compute.RebootType;
 import org.openstack4j.model.compute.ServerCreate;
-import org.openstack4j.model.identity.v3.Token;
-import org.openstack4j.openstack.OSFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
