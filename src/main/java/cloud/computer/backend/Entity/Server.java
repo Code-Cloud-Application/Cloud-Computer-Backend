@@ -72,4 +72,18 @@ public class Server {
     public Date getCreated() {
         return created;
     }
+
+    @Override
+    public String toString() {
+        return "Server{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", ImageId='" + ImageId + '\'' +
+                ", FlavorId='" + FlavorId + '\'' +
+                ", status='" + status + '\'' +
+                ", OwnerId=" + OwnerId +
+                ", created=" + created +
+                '}';
+    }
 }

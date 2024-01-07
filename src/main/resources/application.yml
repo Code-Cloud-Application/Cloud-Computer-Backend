@@ -14,7 +14,11 @@ openstack:
   url: "http://10.2.10.1:5000/v3"
   admin: "admin"
   password: "openstack2023"
+  domain: "default"
   project_id: "b7ea1c378b0f4d68aa9673841bd2257f"
+  # 浮动IP地址池所在的网络的ID
+  network_id: "7e00a9b1-1735-4bcb-8dd9-04aac1e55b67"
+  LAN_network_id: "b7f11dec-3658-4a90-bc6c-82f468961be6"
 
 token:
   period: 7

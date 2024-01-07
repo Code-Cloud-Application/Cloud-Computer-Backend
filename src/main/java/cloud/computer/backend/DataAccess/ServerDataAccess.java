@@ -25,6 +25,7 @@ public class ServerDataAccess {
         return this.template.query("select * from server", new ServerRowMapper());
     }
 
+    @Nullable
     public Server getServerById(String id){
         try {
             return this.template.queryForObject("select * from server where id=?", new ServerRowMapper(), id);
