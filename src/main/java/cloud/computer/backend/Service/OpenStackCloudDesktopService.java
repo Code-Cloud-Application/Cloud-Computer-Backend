@@ -1,21 +1,24 @@
 package cloud.computer.backend.Service;
 
-import cloud.computer.backend.DataAccess.OpenStackKeystoneDataAccess;
+import cloud.computer.backend.DataAccess.OpenStackDataAccess;
 import cloud.computer.backend.DataAccess.ServerDataAccess;
 import cloud.computer.backend.Entity.Server;
+import org.openstack4j.model.compute.Flavor;
+import org.openstack4j.model.image.v2.Image;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OpenStackCloudDesktopService implements CloudDesktopService{
 
     private final ServerDataAccess serverDataAccess;
-    private final OpenStackKeystoneDataAccess openStackKeystoneDataAccess;
+    private final OpenStackDataAccess openStackDataAccess;
 
-    public OpenStackCloudDesktopService(ServerDataAccess serverDataAccess, OpenStackKeystoneDataAccess openStackKeystoneDataAccess) {
+    public OpenStackCloudDesktopService(ServerDataAccess serverDataAccess, OpenStackDataAccess openStackDataAccess) {
         this.serverDataAccess = serverDataAccess;
-        this.openStackKeystoneDataAccess = openStackKeystoneDataAccess;
+        this.openStackDataAccess = openStackDataAccess;
     }
 
     /**
@@ -40,8 +43,8 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         if (server == null) {
             return;
         }
-        this.openStackKeystoneDataAccess.powerOnServer(id);
-        server.setStatus(this.openStackKeystoneDataAccess.getPowerStatus(id));
+        this.openStackDataAccess.powerOnServer(id);
+        server.setStatus(this.openStackDataAccess.getPowerStatus(id));
         this.serverDataAccess.updateServer(server);
     }
 
@@ -56,8 +59,8 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         if (server == null) {
             return;
         }
-        this.openStackKeystoneDataAccess.powerOffServer(id);
-        server.setStatus(this.openStackKeystoneDataAccess.getPowerStatus(id));
+        this.openStackDataAccess.powerOffServer(id);
+        server.setStatus(this.openStackDataAccess.getPowerStatus(id));
         this.serverDataAccess.updateServer(server);
     }
 
@@ -74,10 +77,10 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
             return;
         }
         switch (method){
-            case HARD -> this.openStackKeystoneDataAccess.hardRebootServer(id);
-            case SOFT -> this.openStackKeystoneDataAccess.softRebootServer(id);
+            case HARD -> this.openStackDataAccess.hardRebootServer(id);
+            case SOFT -> this.openStackDataAccess.softRebootServer(id);
         }
-        server.setStatus(this.openStackKeystoneDataAccess.getPowerStatus(id));
+        server.setStatus(this.openStackDataAccess.getPowerStatus(id));
         this.serverDataAccess.updateServer(server);
     }
 
@@ -92,7 +95,7 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         if (server == null) {
             return;
         }
-        this.openStackKeystoneDataAccess.deleteServer(id);
+        this.openStackDataAccess.deleteServer(id);
         this.serverDataAccess.removeServer(id);
     }
 
@@ -111,11 +114,31 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         server.setName(server_name);
         server.setFlavorId(flavor_id);
         server.setImageId(image_id);
-        Server server1 = this.openStackKeystoneDataAccess.createServer(server, password);
-        server1.setOwnerId(owner_id);
-        this.serverDataAccess.addServer(server1);
+//        Server server1 = null;
+        this.openStackDataAccess.createServer(server, password, owner_id);
+//
+//        server1.setOwnerId(owner_id);
+//        this.serverDataAccess.addServer(server1);
     }
 
+    @Override
+    public Flavor getFlavor(String id){
+        return this.openStackDataAccess.getFlavor(id);
+    }
 
+    @Override
+    public Map<String, ? extends Number> getInfo(String id){
+        return this.openStackDataAccess.getInfo(id);
+    }
+
+    @Override
+    public List<? extends Flavor> getFlavors(){
+        return this.openStackDataAccess.getFlavors();
+    }
+
+    @Override
+    public List<? extends Image> getImages(){
+        return this.openStackDataAccess.getImages();
+    }
 
 }

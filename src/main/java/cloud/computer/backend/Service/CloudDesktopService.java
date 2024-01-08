@@ -1,8 +1,11 @@
 package cloud.computer.backend.Service;
 
 import cloud.computer.backend.Entity.Server;
+import org.openstack4j.model.compute.Flavor;
+import org.openstack4j.model.image.v2.Image;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 云桌面服务接口（核心API）
@@ -56,6 +59,14 @@ public interface CloudDesktopService {
                 String image_id,
                 String password,
                 int owner_id) throws InterruptedException;
+
+    Flavor getFlavor(String id);
+
+    Map<String, ? extends Number> getInfo(String id);
+
+    List<? extends Flavor> getFlavors();
+
+    List<? extends Image> getImages();
 
     /**
      * 云桌面实例重启方法

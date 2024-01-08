@@ -44,18 +44,52 @@ public class ServerDataAccess {
     }
 
     public void addServer(Server server){
-        this.template.update("insert into server (id, name, address, image_id, flavor_id, status, owner_id, created_at) values (?, ?, ?, ?, ?, ?, ?, ?);",
-                server.getId(), server.getName(), server.getAddress(), server.getImageId(), server.getFlavorId(), server.getStatus(), server.getOwnerId(), server.getCreated());
-    }
-
-    public void updateServer(Server server){
-        this.template.update("update server set address = ?, image_id = ?, flavor_id = ?, " +
-                "status = ?, owner_id = ? where id = ?;",
+        this.template.update(
+                "insert into server " +
+                        "(id, " +
+                        "name, " +
+                        "address, " +
+                        "image_id, " +
+                        "flavor_id, " +
+                        "status, " +
+                        "owner_id, " +
+                        "created_at, " +
+                        "image_name, " +
+                        "vCPU," +
+                        "RAM, " +
+                        "cpu_usage)" +
+                        " values " +
+                        "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                server.getId(),
+                server.getName(),
                 server.getAddress(),
                 server.getImageId(),
                 server.getFlavorId(),
                 server.getStatus(),
                 server.getOwnerId(),
+                server.getCreated(),
+                server.getImageName(),
+                server.getvCPU(),
+                server.getRAM(),
+                server.getCpuUsage()
+        );
+    }
+
+    public void updateServer(Server server){
+        this.template.update("update server set " +
+                        "address = ?, image_id = ?, flavor_id = ?, " +
+                        "status = ?, owner_id = ?, image_name = ?," +
+                        "vCPU = ?, RAM = ?, cpu_usage = ? " +
+                        "where id = ?;",
+                server.getAddress(),
+                server.getImageId(),
+                server.getFlavorId(),
+                server.getStatus(),
+                server.getOwnerId(),
+                server.getImageName(),
+                server.getvCPU(),
+                server.getRAM(),
+                server.getCpuUsage(),
                 server.getId());
     }
 

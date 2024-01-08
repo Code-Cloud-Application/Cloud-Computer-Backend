@@ -12,6 +12,10 @@ public class Server {
     private String status;
     private int OwnerId;
     private final Date created = Calendar.getInstance().getTime();
+    private String ImageName;
+    private int vCPU;
+    private int RAM;
+    private Long CpuUsage;
 
     public String getId() {
         return id;
@@ -73,6 +77,38 @@ public class Server {
         return created;
     }
 
+    public String getImageName() {
+        return ImageName;
+    }
+
+    public void setImageName(String imageName) {
+        ImageName = imageName;
+    }
+
+    public int getvCPU() {
+        return vCPU;
+    }
+
+    public void setvCPU(int vCPU) {
+        this.vCPU = vCPU;
+    }
+
+    public int getRAM() {
+        return RAM;
+    }
+
+    public void setRAM(int RAM) {
+        this.RAM = RAM;
+    }
+
+    public Long getCpuUsage() {
+        return CpuUsage;
+    }
+
+    public void setCpuUsage(Long cpuUsage) {
+        CpuUsage = cpuUsage;
+    }
+
     @Override
     public String toString() {
         return "Server{" +
@@ -84,6 +120,10 @@ public class Server {
                 ", status='" + status + '\'' +
                 ", OwnerId=" + OwnerId +
                 ", created=" + created +
+                ", ImageName='" + ImageName + '\'' +
+                ", vCPU=" + vCPU +
+                ", RAM=" + RAM +
+                ", CpuUsage=" + CpuUsage +
                 '}';
     }
 }
