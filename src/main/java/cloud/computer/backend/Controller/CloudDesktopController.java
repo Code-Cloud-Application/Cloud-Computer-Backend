@@ -74,12 +74,8 @@ public class CloudDesktopController {
             a.put("vCPU", flavor.getVcpus());
             a.put("RAM", flavor.getRam());
             a.put("disk", flavor.getDisk());
-            double cpu_usage = 0;
-            Map<String, ? extends Number> info = this.cloudDesktopService.getInfo(desktop.getId());
-            for (int i = 0; i < flavor.getVcpus(); i++) {
-                cpu_usage += ((Long) info.get("cpu" + i + "_time")) / 1e9;
-            }
-            a.put("cpu_usage", cpu_usage);
+
+            a.put("cpu_usage", this.cloudDesktopService.getCpuUsage(desktop.getId()));
 
             servers.add(a);
         }

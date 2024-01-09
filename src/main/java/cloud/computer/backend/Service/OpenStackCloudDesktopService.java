@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class OpenStackCloudDesktopService implements CloudDesktopService{
@@ -139,6 +140,11 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
     @Override
     public List<? extends Image> getImages(){
         return this.openStackDataAccess.getImages();
+    }
+
+    @Override
+    public long getCpuUsage(String id){
+        return Objects.requireNonNull(this.serverDataAccess.getServerById(id)).getCpuUsage();
     }
 
 }

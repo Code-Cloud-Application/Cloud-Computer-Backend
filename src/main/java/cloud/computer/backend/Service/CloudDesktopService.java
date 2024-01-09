@@ -68,6 +68,9 @@ public interface CloudDesktopService {
 
     List<? extends Image> getImages();
 
+
+    long getCpuUsage(String id);
+
     /**
      * 云桌面实例重启方法
      */

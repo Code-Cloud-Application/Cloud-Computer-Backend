@@ -4,7 +4,7 @@ spring:
     location: logo.txt
   output:
     ansi:
-      enabled: always
+      enabled: detect
   datasource:
     url: "jdbc:mysql://10.2.10.2:3306/cloud"
     username: root
@@ -41,7 +41,7 @@ logging:
   charset:
     console: utf-8
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} === [%thread] === %-5level - %msg%n"
+    console: "%clr(%d{yyyy年MM月dd日}){cyan} %clr(%d{HH:mm:ss.SSS}){yellow} === [%thread] === %clr(%-5level) - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} >>> [%thread] >>> %-5level >>> %logger{50} >>> %msg%n"
   file:
     path: "./logs/"

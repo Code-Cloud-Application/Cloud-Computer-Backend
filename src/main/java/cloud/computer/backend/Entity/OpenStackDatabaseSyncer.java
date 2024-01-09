@@ -45,15 +45,20 @@ public class OpenStackDatabaseSyncer {
             OSClient.OSClientV3 client = this.connector.getClient();
 
             for (Server server : this.serverDataAccess.getServers()) {
-                org.openstack4j.model.compute.Server openstack_server = client.compute().servers().get(server.getId());
-                server.setName(openstack_server.getName());
-                server.setAddress(openstack_server.getAddresses().getAddresses().get(connector.getClient().networking().network().get(network_id).getName()).getFirst().getAddr());
-                server.setStatus(openstack_server.getVmState());
-                server.setImageName(connector.getClient().imagesV2().get(server.getImageId()).getName());
-                server.setvCPU(client.compute().flavors().get(openstack_server.getFlavorId()).getVcpus());
-                server.setRAM(client.compute().flavors().get(openstack_server.getFlavorId()).getRam());
-                server.setCpuUsage(calculateCpuUsage(server.getId()));
-                serverDataAccess.updateServer(server);
+                try {
+                    org.openstack4j.model.compute.Server openstack_server = client.compute().servers().get(server.getId());
+                    server.setName(openstack_server.getName());
+                    server.setAddress(openstack_server.getAddresses().getAddresses().get(connector.getClient().networking().network().get(network_id).getName()).getFirst().getAddr());
+                    server.setStatus(openstack_server.getVmState());
+                    server.setImageName(connector.getClient().imagesV2().get(server.getImageId()).getName());
+                    server.setvCPU(client.compute().flavors().get(openstack_server.getFlavorId()).getVcpus());
+                    server.setRAM(client.compute().flavors().get(openstack_server.getFlavorId()).getRam());
+                    server.setCpuUsage(calculateCpuUsage(server.getId()));
+                    serverDataAccess.updateServer(server);
+                }catch (Exception e){
+                    logger.error(e.getLocalizedMessage());
+                }
+
             }
 
             try {

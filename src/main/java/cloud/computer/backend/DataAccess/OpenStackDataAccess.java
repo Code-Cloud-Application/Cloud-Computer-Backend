@@ -10,6 +10,8 @@ import org.openstack4j.model.compute.ServerCreate;
 import org.openstack4j.model.compute.builder.BlockDeviceMappingBuilder;
 import org.openstack4j.model.image.v2.Image;
 import org.openstack4j.model.storage.block.Volume;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,7 @@ public class OpenStackDataAccess {
     private String LAN_network_id;
     @Value("${openstack.create_instance_timeout}")
     private int create_instance_timeout;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     private final ServerDataAccess serverDataAccess;
@@ -73,7 +76,6 @@ public class OpenStackDataAccess {
     public void createServer(Server server,
                                String password,
                                int owner_id) {
-//        connector.getClient() = OSFactory.clientFromToken(token);
 
         Volume volume = connector.getClient().blockStorage().volumes().create(
                 Builders.volume()
@@ -85,6 +87,7 @@ public class OpenStackDataAccess {
 
         for (int i = 0; i < create_instance_timeout; i++) {
             if(connector.getClient().blockStorage().volumes().get(volume.getId()).getStatus().name().equals("AVAILABLE")){
+//                logger.info("");
                 break;
             }else {
                 try {
