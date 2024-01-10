@@ -40,15 +40,23 @@ public class OpenStackDatabaseSyncer {
         return cpu_usage;
     }
 
+    public org.openstack4j.model.compute.Server get(List<? extends org.openstack4j.model.compute.Server> servers, String id){
+        for (org.openstack4j.model.compute.Server server : servers) {
+            if (server.getId().equals(id)) return server;
+        }
+        return null;
+    }
+
     @Async
     public void sync(){
         OSClient.OSClientV3 client = this.connector.getClient();
         while (true){
             this.logger.info("正在同步OpenStack数据库");
             long t1 = System.nanoTime();
+            List<? extends org.openstack4j.model.compute.Server> list = client.compute().servers().list(true);
             for (Server server : this.serverDataAccess.getServers()) {
                 try {
-                    org.openstack4j.model.compute.Server openstack_server = client.compute().servers().get(server.getId());
+                    org.openstack4j.model.compute.Server openstack_server = get(list, server.getId());
                     server.setName(openstack_server.getName());
                     server.setAddress(openstack_server.getAddresses().getAddresses().get(connector.getClient().networking().network().get(network_id).getName()).getFirst().getAddr());
                     server.setStatus(openstack_server.getVmState());
