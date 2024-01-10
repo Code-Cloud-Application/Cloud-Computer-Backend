@@ -20,7 +20,7 @@ openstack:
   network_id: "7e00a9b1-1735-4bcb-8dd9-04aac1e55b67"
   LAN_network_id: "b7f11dec-3658-4a90-bc6c-82f468961be6"
   # 创建云桌面实例最大等待时间（单位：秒）
-  # 超时并不一定会导致创建失败，而是应用程序将不会跟踪创建状态，线程将会从线程池中释放
+  # 超时并不一定会导致创建失败，但是应用程序将不会跟踪创建状态，线程将会从线程池中释放
   create_instance_timeout: 600
 # 线程池设置
 thread-pool:
@@ -35,7 +35,7 @@ token:
 
 sync:
   # 同步 OpenStack 数据库的周期（单位：秒）
-  period: 30
+  period: 5
 
 logging:
   charset:

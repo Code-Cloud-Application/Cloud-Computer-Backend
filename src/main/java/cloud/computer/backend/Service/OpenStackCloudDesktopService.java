@@ -2,9 +2,12 @@ package cloud.computer.backend.Service;
 
 import cloud.computer.backend.DataAccess.OpenStackDataAccess;
 import cloud.computer.backend.DataAccess.ServerDataAccess;
+import cloud.computer.backend.DataAccess.VolumeDataAccess;
 import cloud.computer.backend.Entity.Server;
+import cloud.computer.backend.Entity.Volume;
 import org.openstack4j.model.compute.Flavor;
 import org.openstack4j.model.image.v2.Image;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +19,12 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
 
     private final ServerDataAccess serverDataAccess;
     private final OpenStackDataAccess openStackDataAccess;
+    private final VolumeDataAccess volumeDataAccess;
 
-    public OpenStackCloudDesktopService(ServerDataAccess serverDataAccess, OpenStackDataAccess openStackDataAccess) {
+    public OpenStackCloudDesktopService(ServerDataAccess serverDataAccess, OpenStackDataAccess openStackDataAccess, VolumeDataAccess volumeDataAccess) {
         this.serverDataAccess = serverDataAccess;
         this.openStackDataAccess = openStackDataAccess;
+        this.volumeDataAccess = volumeDataAccess;
     }
 
     /**
@@ -31,6 +36,12 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
     @Override
     public List<Server> getCloudDesktops(int user_id) {
         return this.serverDataAccess.getServerByOwner(user_id);
+    }
+
+    @Override
+    @Nullable
+    public Server getCloudDesktop(String id) {
+        return this.serverDataAccess.getServerById(id);
     }
 
     /**
@@ -96,14 +107,25 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         if (server == null) {
             return;
         }
+
         this.openStackDataAccess.deleteServer(id);
         this.serverDataAccess.removeServer(id);
+        for (Volume volume : this.volumeDataAccess.getByDesktopId(id)) {
+            this.openStackDataAccess.deleteVolume(volume.getId());
+            this.volumeDataAccess.removeVolume(volume.getId());
+        }
+
+
     }
 
     /**
-     * 创建云桌面实例
      *
-     * @param server 云桌面实例
+     * @param server_name 云桌面名称
+     * @param flavor_id 云桌面实例规格ID
+     * @param image_id 云桌面镜像ID
+     * @param password 云桌面密码
+     * @param owner_id 云桌面所有者 ID
+     * @throws InterruptedException 创建中断会抛出此异常
      */
     @Override
     public void create(String server_name,
@@ -115,11 +137,7 @@ public class OpenStackCloudDesktopService implements CloudDesktopService{
         server.setName(server_name);
         server.setFlavorId(flavor_id);
         server.setImageId(image_id);
-//        Server server1 = null;
         this.openStackDataAccess.createServer(server, password, owner_id);
-//
-//        server1.setOwnerId(owner_id);
-//        this.serverDataAccess.addServer(server1);
     }
 
     @Override

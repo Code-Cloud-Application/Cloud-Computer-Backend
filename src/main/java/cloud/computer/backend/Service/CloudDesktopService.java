@@ -22,6 +22,7 @@ public interface CloudDesktopService {
      * @return 列表，包含该用户所持有的所有云桌面实例
      */
     List<Server> getCloudDesktops(int user_id);
+    Server getCloudDesktop(String id);
 
     /**
      * 开启某个云桌面实例

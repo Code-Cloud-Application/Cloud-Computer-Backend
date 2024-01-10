@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.Map;
 import java.util.concurrent.Executor;
 
 @Configuration
@@ -18,7 +17,7 @@ public class AsyncConfig {
     @Value("${thread-pool.desktop_creating.queue_capacity}")
     private int desktop_creating_queue_capacity;
 
-    @Bean(name = "desktop_creating")
+    @Bean(name = "desktop")
     public Executor customThreadPool() {
         /*
         自定义线程池

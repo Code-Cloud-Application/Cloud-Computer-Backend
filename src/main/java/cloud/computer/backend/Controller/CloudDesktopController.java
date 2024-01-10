@@ -68,6 +68,7 @@ public class CloudDesktopController {
         for (Server desktop : this.cloudDesktopService.getCloudDesktops(user.getId())) {
             JSONObject a = new JSONObject();
             Flavor flavor = this.cloudDesktopService.getFlavor(desktop.getFlavorId());
+            a.put("id", desktop.getId());
             a.put("name", desktop.getName());
             a.put("status", desktop.getStatus());
             a.put("address", desktop.getAddress());
@@ -125,5 +126,83 @@ public class CloudDesktopController {
         }
         result.put("flavors", list);
         return result;
+    }
+
+    @PostMapping("/removeInstance")
+    public JSONObject remove(@RequestBody JSONObject param){
+        String id = param.getString("desktop-id");
+        this.cloudDesktopService.remove(id);
+        JSONObject result = new JSONObject();
+        result.put("code", 1);
+        return result;
+    }
+
+    @PostMapping("/startInstance")
+    public JSONObject start(@RequestBody JSONObject param){
+        String id = param.getString("desktop-id");
+        JSONObject result = new JSONObject();
+        if (cloudDesktopService.getCloudDesktop(id) == null) {
+            result.put("code", 0);
+            result.put("message", "云桌面实例" + id + "不存在！");
+            return result;
+        }
+        if (cloudDesktopService.getCloudDesktop(id).getStatus().equals("active")) {
+            result.put("code", 0);
+            result.put("message", "云桌面实例" + id + "已经处于开启状态！");
+            return result;
+        }
+        this.cloudDesktopService.powerOn(id);
+        result.put("code", 1);
+        result.put("message", "成功向云桌面实例" + id + "发送开机命令！");
+        return result;
+    }
+
+    @PostMapping("/stopInstance")
+    public JSONObject stop(@RequestBody JSONObject param){
+        String id = param.getString("desktop-id");
+        JSONObject result = new JSONObject();
+        if (cloudDesktopService.getCloudDesktop(id) == null) {
+            result.put("code", 0);
+            result.put("message", "云桌面实例" + id + "不存在！");
+            return result;
+        }
+        if (cloudDesktopService.getCloudDesktop(id).getStatus().equals("stopped")) {
+            result.put("code", 0);
+            result.put("message", "云桌面实例" + id + "已经处于关闭状态！");
+            return result;
+        }
+        this.cloudDesktopService.powerOff(id);
+        result.put("code", 1);
+        result.put("message", "成功向云桌面实例" + id + "发送关机命令！");
+        return result;
+    }
+
+    @PostMapping("/rebootInstance")
+    public JSONObject reboot(@RequestBody JSONObject param){
+        String id = param.getString("desktop-id");
+        String mode = param.getString("reboot-mode");
+        JSONObject result = new JSONObject();
+        if (cloudDesktopService.getCloudDesktop(id) == null) {
+            result.put("code", 0);
+            result.put("message", "云桌面实例" + id + "不存在！");
+            return result;
+        }
+        if (mode.equals("hard")){
+            this.cloudDesktopService.reboot(id, CloudDesktopService.RebootMethod.HARD);
+            result.put("code", 1);
+            result.put("message", "成功向云桌面实例" + id + "发送硬重启命令！");
+            return result;
+        } else if (mode.equals("soft")) {
+            this.cloudDesktopService.reboot(id, CloudDesktopService.RebootMethod.SOFT);
+            result.put("code", 1);
+            result.put("message", "成功向云桌面实例" + id + "发送软重启命令！");
+            return result;
+        }else {
+            result.put("code", 0);
+            result.put("message", "未知的重新引导模式：" + mode);
+            return result;
+        }
+
+
     }
 }
