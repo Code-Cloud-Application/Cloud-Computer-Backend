@@ -5,19 +5,29 @@ spring:
   output:
     ansi:
       enabled: detect
+  # 缓存数据库配置
   datasource:
+    # 缓存数据库URL地址
     url: "jdbc:mysql://10.2.10.2:3306/cloud"
+    # 缓存数据库用户名
     username: root
+    # 缓存数据库密码
     password: 123456
 
 openstack:
+  # OpenStack的Keystone节点API地址
   url: "http://10.2.10.1:5000/v3"
+  # OpenStack 管理员用户名
   admin: "admin"
+  # OpenStack 管理员密码
   password: "openstack2023"
+  # OpenStack 管理员所在域名
   domain: "default"
+  # OpenStack管理员所在项目的ID
   project_id: "b7ea1c378b0f4d68aa9673841bd2257f"
   # 浮动IP地址池所在的网络的ID
   network_id: "7e00a9b1-1735-4bcb-8dd9-04aac1e55b67"
+  # 内部网络的ID
   LAN_network_id: "b7f11dec-3658-4a90-bc6c-82f468961be6"
   # 创建云桌面实例最大等待时间（单位：秒）
   # 超时并不一定会导致创建失败，但是应用程序将不会跟踪创建状态，线程将会从线程池中释放
@@ -25,12 +35,17 @@ openstack:
 # 线程池设置
 thread-pool:
   desktop_creating:
+    # 线程池核心线程数量
     core_pool_size: 8
+    # 线程池最大线程数
     max_pool_size: 16
+    # 线程池队列规格
     queue_capacity: 24
 
 
+# 令牌设置
 token:
+  # 过期时间，单位为天
   period: 7
 
 sync:
@@ -39,16 +54,24 @@ sync:
 
 logging:
   charset:
+    # 日志记录所使用的字符集
     console: utf-8
+  # 日志记录的样式
   pattern:
+    # 控制台日志输出样式
     console: "%clr(%d{yyyy年MM月dd日}){cyan} %clr(%d{HH:mm:ss.SSS}){yellow} === [%thread] === %clr(%-5level) - %msg%n"
+    # 日志文件的保存样式
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} >>> [%thread] >>> %-5level >>> %logger{50} >>> %msg%n"
   file:
+    # 日志文件保存路径
     path: "./logs/"
+    # 日志文件名称
     name: "application.log"
+  # 日志输出等级
   level:
     root: info
     sql: info
     web: info
 server:
+  # 设置运行端口，注意不要与其他服务的端口冲突，否则无法启动
   port: 8080
