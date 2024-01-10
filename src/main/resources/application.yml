@@ -50,3 +50,5 @@ logging:
     root: info
     sql: info
     web: info
+server:
+  port: 8080
